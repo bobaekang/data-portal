@@ -305,7 +305,20 @@ class ExplorerButtonGroup extends React.Component {
 
   exportToWorkspace = async (indexType) => {
     this.setState({ exportingToWorkspace: true });
-    const resultManifest = await this.getManifest(indexType);
+    // const resultManifest = await this.getManifest(indexType);
+
+    const resultManifest = [
+      {
+        subject_id: [
+          '105be143-6915-466c-9093-83c91fa9abee',
+        ],
+        object_id: '53b7f2be-c8a9-47d9-bf11-063ed6d91be3',
+        md5sum: '446557db934c847ec94d37e4f066f55f',
+        file_name: 'qa-upload-file_qr8hn.txt',
+        file_size: 77,
+      },
+    ];
+
     if (!!resultManifest && resultManifest.length > 0) {
       fetchWithCreds({
         path: `${manifestServiceApiPath}`,
@@ -403,6 +416,8 @@ class ExplorerButtonGroup extends React.Component {
 
   // check if the user has access to this resource
   isButtonDisplayed = (buttonConfig) => {
+    return true;
+
     if (buttonConfig.type === 'export-to-workspace' || buttonConfig.type === 'export-files-to-workspace') {
       const authResult = this.props.userAccess.Workspace;
       return typeof authResult !== 'undefined' ? authResult : true;
@@ -412,6 +427,8 @@ class ExplorerButtonGroup extends React.Component {
   };
 
   isButtonEnabled = (buttonConfig) => {
+    return true;
+
     if (this.props.isLocked) {
       return !this.props.isLocked;
     }
